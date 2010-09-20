@@ -11,8 +11,6 @@ gem 'cream',      '~> 0.5.4'
 # gem "cancan-rest-links"
 # gem "cancan-permits"
 
-# gem 'devise',     '~> 1.1.2'
-
 gem 'mm-devise',    '~> 1.1.2'
 
 # Bundle edge Rails instead:

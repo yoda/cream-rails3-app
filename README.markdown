@@ -11,8 +11,8 @@ This app will be the template for the design of the Cream *config* generator.
    
 in *Gemfile* insert:
 
-gem 'cream', '~> 0.5.4'
-gem 'devise', '~> 1.1.2'
+gem 'cream',      '~> 0.5.4'
+gem 'mm-devise',  '~> 1.1.2'
 
 Install devise 
 run "rails g devise:install"
@@ -31,7 +31,12 @@ app/views/layouts/application.html.erb
 
 Create devise user
 
+Note ORM argument optional as it will use the correct ORM if configured correctly in the devise initializer!
+
+config/initializers/devise.rb
+  require 'devise/orm/mongo_mapper'
+
 run "rails g devise User --orm ORM"
 
 Configure default permits 
-run "rails g cream"
+run "rails g permits"

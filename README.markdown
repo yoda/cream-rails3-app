@@ -72,6 +72,12 @@ Insert after opening :body element
   <p class="alert"><%= alert %></p>  
 </pre>
 
+Create Devise views for customizing Session forms and such (optional):
+
+<code>rails g devise:views</code>
+
+Edit any of the view files (optional)
+
 ### Create devise user
 
 Note ORM argument optional as it will use the correct ORM if configured correctly in the devise initializer!

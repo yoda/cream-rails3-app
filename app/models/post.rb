@@ -1,12 +1,5 @@
-# Effectively: require 'roles_mongo_mapper/strategy/single/admin_flag'
-use_roles_strategy :admin_flag
-
-class User
-  include MongoMapper::Document
-  include Roles::MongoMapper 
-  strategy :admin_flag, :default
-
-  valid_roles_are :admin, :guest         
+class Post
+  include MongoMapper::Document         
 
 # Validations :::::::::::::::::::::::::::::::::::::::::::::::::::::
 # validates_presence_of :attribute
@@ -32,13 +25,8 @@ class User
 
 # Typecast
 # key :user_ids, Array, :typecast => 'ObjectId'
-
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
-
-  # Setup accessible (or protected) attributes for your model
-  key :email
-  key :password
-  key :password_confirmation
-  key :remember_me
-
+  
+   
+  key :title, String
+  key :body, String
 end

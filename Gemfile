@@ -13,3 +13,5 @@ gem "mongo_mapper"
 # use mongo mapper version of roles
 gem 'roles_mongo_mapper',    '~> 0.1.2'
 
+gem 'rails3-generators',    '~> 0.13.0'
+

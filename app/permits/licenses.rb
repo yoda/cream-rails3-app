@@ -14,7 +14,6 @@ class BloggingLicense < License::Base
   end
   
   def enforce!
-    can(:read, Blog)
     can(:create, Post)
     owns(user, Post)
   end

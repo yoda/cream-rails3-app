@@ -1,4 +1,6 @@
-Rails3CreamApp::Application.routes.draw do  
+Rails3CreamApp::Application.routes.draw do
+  resources :posts
+
   get "welcome/show"
   get "welcome/index"
   

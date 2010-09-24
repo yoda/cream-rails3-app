@@ -101,7 +101,20 @@ Inside config/application.rb
 
 ## Configure and generate roles
 
-<code>rails g mongo_mapper:roles</code> 
+Add :admin_flag role strategy to User model
+
+<code>rails g mongo_mapper:roles User --strategy admin_flag</code> 
+
+<code>rails s</code>
+
+*Module RoleStrategy::MongoMapper::RoleString has not been registered*
+
+Add to user at the top:
+<pre>
+  use_roles_strategy :admin_flag
+</pre>
+
+Note: Should this be added (as an option?) to the Roles generator?
 
 ## Add Devise protection
 
@@ -135,4 +148,21 @@ Start web server
 
 In browser go to: localhost:3000/welcome/index
 
-This should redirect to the Devise 'Sign up' form :)
+This should redirect to the Devise 'Sign up' form :) 
+
+## Scaffold some app code
+
+Now off to test the Cream functionality
+
+Scaffold a Blog model using the mongo_mapper:model generator from *rails3-generators* (included by *mm-devise*)
+A Blog consists of Posts, with an :index action listing all blog Posts, and :show to show an individual blog Post 
+<code>rails g scaffold Post title:string body:string --orm mongo_mapper</code>
+
+Inside 'app/views/posts/index.erb.html':
+<pre>
+  <%= show_link post %>
+  <%= edit_link post %>
+  <%= delete_link post %>
+</pre>
+
+Now see if the permissions work

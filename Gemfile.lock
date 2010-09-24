@@ -178,4 +178,5 @@ DEPENDENCIES
   mm-devise (~> 1.1.3)
   mongo_mapper
   rails (~> 3.0.0)
+  rails3-generators (~> 0.13.0)
   roles_mongo_mapper (~> 0.1.2)

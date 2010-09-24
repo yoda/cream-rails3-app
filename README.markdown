@@ -6,7 +6,28 @@ Currently under construction... the gem combinations used in this app have recen
 
 This app will be the template for the design of the Cream *config* generator. The following steps have/should be done.
 
-## Steps
+## Steps 
+
+These are the steps to be taken to get a Cream enabled app up and running with Mongo Mapper. 
+I hope my coming generator will minimize the amount of manual steps a great deal! 
+
+*You are most welcome to join in the effort ;)*
+
+## Setup Rails 3 for Mongo DB
+
+Either: Create new app
+
+<code>rails my_app --skip-activerecord</code>
+
+Or in existing app, edit 'config/application.rb'
+<pre>
+  # require 'rails/all'  
+
+  require "action_controller/railtie"
+  require "action_mailer/railtie"
+  require "active_resource/railtie"
+  require "rails/test_unit/railtie"  
+</pre>
 
 ## Configure gemfile
    
@@ -18,6 +39,8 @@ in *Gemfile* insert:
 
   # use mongo mapper version of devise
   gem 'mm-devise',    '~> 1.1.3'
+
+  # gem "mongo_mapper"
 
   # use mongo mapper version of roles
   gem 'roles_mongo_mapper',    '~> 0.1.2'
@@ -31,11 +54,17 @@ in *Gemfile* insert:
 Add to application.rb             
 <code>config.action_mailer.default_url_options = { :host => 'localhost:3000' }</code>
 
-If no :home controller, create one with an :index view.
+If no Welcome controller, create one with an 'index' view.
+<pre>
+  get :to => "welcome#index"
+  root :to => "welcome#index"  
+</pre>
 
-<code>root :to => "home#index"</code>
+Generate Welcome controller with index action and index view
 
-In app/views/layouts/application.html.erb
+<code>rails g controller Welcome index</code>
+
+In 'app/views/layouts/application.html.erb'
 
 Insert after opening :body element
 <pre>
@@ -47,7 +76,7 @@ Insert after opening :body element
 
 Note ORM argument optional as it will use the correct ORM if configured correctly in the devise initializer!
 
-Inside config/initializers/devise.rb, change to:
+Inside 'config/initializers/devise.rb' change to:
 <code>require 'devise/orm/mongo_mapper'</code>  
 
 Create devise User for Mongo Mapper
@@ -59,6 +88,45 @@ Configure default permits
 
 <code>rails g permits</code>
 
+Configure Rails to autoload permits files
+
+Inside config/application.rb
+<code>config.autoload_paths += %W(#{Rails.root}/app/permits)</code>    
+
 ## Configure and generate roles
 
-<code>rails g mongo_mapper:roles</code>
+<code>rails g mongo_mapper:roles</code> 
+
+## Add Devise protection
+
+In Welcome controller:
+
+<code>before_filter :authenticate_user!</code> 
+
+## Add Default user (optional)
+
+Edit 'db/seeds.rb'
+<pre>
+  User.delete_all
+  user = User.create(:email => 'kmandrup@gmail.com', :password => '123456', :password_confirmation => '123456')  
+</pre>
+
+Create 'lib/tasks/db.rake'
+<pre>
+  namespace :db do
+    task :seed => :environment do
+      load "#{Rails.root}/db/seeds.rb"
+    end
+  end  
+</pre> 
+
+<code>rake db:seed</code>     
+
+## Test application
+
+Start web server
+<code>rails s</code>
+
+In browser go to: localhost:3000/welcome/index
+
+This should redirect to the Devise 'Sign up' form :)

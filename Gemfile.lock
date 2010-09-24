@@ -176,5 +176,6 @@ DEPENDENCIES
   cream (~> 0.5.5)
   devise (~> 1.2.0)
   mm-devise (~> 1.1.3)
+  mongo_mapper
   rails (~> 3.0.0)
   roles_mongo_mapper (~> 0.1.2)

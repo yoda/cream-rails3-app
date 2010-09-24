@@ -26,8 +26,7 @@ class User
 # Typecast
 # key :user_ids, Array, :typecast => 'ObjectId'
 
-  devise :database_authenticatable, :registerable,
-       :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
   key :email

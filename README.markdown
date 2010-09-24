@@ -1,42 +1,64 @@
 # Cream Rails 3 sample app
 
-Under construction...
+Currently under construction... the gem combinations used in this app have recently been updated (locally) and not all been released.
 
-## Status: Sept. 19, 2010
+## Status: Sept. 24, 2010
 
-Currently the *permits* generator has been to generate default permits. More to follow as I get futher.
-This app will be the template for the design of the Cream *config* generator.
+This app will be the template for the design of the Cream *config* generator. The following steps have/should be done.
 
 ## Steps
+
+## Configure gemfile
    
 in *Gemfile* insert:
 
-gem 'cream',      '~> 0.5.4'
-gem 'mm-devise',  '~> 1.1.2'
+<pre>
+  gem 'cream',        '~> 0.5.5' 
+  gem 'devise',       '~> 1.2.0' 
 
-Install devise 
-run "rails g devise:install"
+  # use mongo mapper version of devise
+  gem 'mm-devise',    '~> 1.1.3'
 
-Add to application.rb
-config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  # use mongo mapper version of roles
+  gem 'roles_mongo_mapper',    '~> 0.1.2'
+  
+</pre>
 
-root :to => "home#index"
+### Install devise 
 
-app/views/layouts/application.html.erb
+<code>rails g devise:install</code>
 
+Add to application.rb             
+<code>config.action_mailer.default_url_options = { :host => 'localhost:3000' }</code>
+
+If no :home controller, create one with an :index view.
+
+<code>root :to => "home#index"</code>
+
+In app/views/layouts/application.html.erb
+
+Insert after opening :body element
 <pre>
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>  
 </pre>
 
-Create devise user
+### Create devise user
 
 Note ORM argument optional as it will use the correct ORM if configured correctly in the devise initializer!
 
-config/initializers/devise.rb
-  require 'devise/orm/mongo_mapper'
+Inside config/initializers/devise.rb, change to:
+<code>require 'devise/orm/mongo_mapper'</code>  
 
-run "rails g devise User --orm ORM"
+Create devise User for Mongo Mapper
+<code>rails g mongo_mapper:devise User</code>
+
+## Permits
 
 Configure default permits 
-run "rails g permits"
+
+<code>rails g permits</code>
+
+## Configure and generate roles
+
+<code>rails g mongo_mapper:roles</code>

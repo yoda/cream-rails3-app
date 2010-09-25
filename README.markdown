@@ -1,10 +1,10 @@
 # Cream Rails 3 sample app
 
-Currently under construction... the gem combinations used in this app have recently been updated (locally) and not all been released.
+This app will be the template for the design of the Cream *config* generator.
 
-## Status: Sept. 24, 2010
+## Status: Sept. 25, 2010
 
-This app will be the template for the design of the Cream *config* generator. The following steps have/should be done.
+The gems which this project rely on have all been updated and released. So it should work!
 
 ## Steps 
 

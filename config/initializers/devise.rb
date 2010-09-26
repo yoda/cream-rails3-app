@@ -1,5 +1,5 @@
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
-# four configuration values can also be set straight in your models. 
+# four configuration values can also be set straight in your models.
 Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
@@ -13,7 +13,6 @@ Devise.setup do |config|
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
   require 'devise/orm/mongo_mapper'
-#  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating an user. By default is
@@ -26,36 +25,36 @@ Devise.setup do |config|
   # Tell if authentication through request.params is enabled. True by default.
   # config.params_authenticatable = true
 
-  # Tell if authentication through HTTP Basic Auth is enabled. False by default.
-  # config.http_authenticatable = false
+  # Tell if authentication through HTTP Basic Auth is enabled. True by default.
+  # config.http_authenticatable = true
 
-  # If http headers should be returned for AJAX requests. True by default.
+  # Set this to true to use Basic Auth for AJAX requests.  True by default.
   # config.http_authenticatable_on_xhr = true
 
-  # The realm used in Http Basic Authentication. "Application" by default.
+  # The realm used in Http Basic Authentication
   # config.http_authentication_realm = "Application"
 
   # ==> Configuration for :database_authenticatable
+  # For bcrypt, this is the cost for hashing the password and defaults to 10. If
+  # using other encryptors, it sets how many times you want the password re-encrypted.
+  config.stretches = 10
+
   # Define which will be the encryption algorithm. Devise also supports encryptors
   # from others authentication tools as :clearance_sha1, :authlogic_sha512 (then
   # you should set stretches above to 20 for default behavior) and :restful_authentication_sha1
   # (then you should set stretches to 10, and copy REST_AUTH_SITE_KEY to pepper)
   config.encryptor = :bcrypt
 
-  # For bcrypt, this is the cost for hashing the password and defaults to 10. If
-  # using other encryptors, it sets how many times you want the password re-encrypted.
-  config.stretches = 10
-
   # Setup a pepper to generate the encrypted password.
-  config.pepper = "9a00d6398e29b32d43e4dfa35b086da9784057d5b165c90515582903d0689de63abd10d8aac72cfddf764cb20e7736cf9090689b1d88b603895bec7ff1be9746"
+  config.pepper = "eeac9bc9a1488a23890814f02158dffefb12c71c6575b8361d16293b164d780eddf169138fa757e40ae36b4ab8568312e8467977f39c72f2285f3b1c35c594aa"
 
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time
   # he will be able to access your application without confirming. Default is nil.
-  # When confirm_within is zero, the user won't be able to sign in without confirming.
-  # You can use this to let your user access some features of your application
-  # without confirming the account, but blocking it after a certain period
-  # (ie 2 days).
+  # When confirm_within is zero, the user won't be able to sign in without confirming. 
+  # You can use this to let your user access some features of your application 
+  # without confirming the account, but blocking it after a certain period 
+  # (ie 2 days). 
   # config.confirm_within = 2.days
 
   # ==> Configuration for :rememberable
@@ -69,7 +68,7 @@ Devise.setup do |config|
   # config.extend_remember_period = false
 
   # ==> Configuration for :validatable
-  # Range for password length. Default is 6..20.
+  # Range for password length
   # config.password_length = 6..20
 
   # Regex to use to validate the email address
@@ -77,8 +76,8 @@ Devise.setup do |config|
 
   # ==> Configuration for :timeoutable
   # The time you want to timeout the user session without activity. After this
-  # time the user will be asked for credentials again. Default is 30 minutes.
-  # config.timeout_in = 30.minutes
+  # time the user will be asked for credentials again.
+  # config.timeout_in = 10.minutes
 
   # ==> Configuration for :lockable
   # Defines which strategy will be used to lock an account.
@@ -108,16 +107,16 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  # config.scoped_views = true
 
   # Configure the default scope given to Warden. By default it's the first
-  # devise role declared in your routes (usually :user).
+  # devise role declared in your routes.
   # config.default_scope = :user
 
-  # Configure sign_out behavior.
-  # Sign_out action can be scoped (i.e. /users/sign_out affects only :user scope).
-  # The default is true, which means any logout action will sign out all active scopes.
-  # config.sign_out_all_scopes = true
+  # Configure sign_out behavior. 
+  # By default sign_out is scoped (i.e. /users/sign_out affects only :user scope).
+  # In case of sign_out_all_scopes set to true any logout action will sign out all active scopes.
+  # config.sign_out_all_scopes = false
 
   # ==> Navigation configuration
   # Lists the formats that should be treated as navigational. Formats like
@@ -127,24 +126,17 @@ Devise.setup do |config|
   # should add them to the navigational formats lists. Default is [:html]
   # config.navigational_formats = [:html, :iphone]
 
-  # The default HTTP method used to sign out a resource. Default is :get.
-  # config.sign_out_via = :get
-
-  # ==> OAuth2
-  # Add a new OAuth2 provider. Check the README for more information on setting
-  # up on your models and hooks. By default this is not set.
-  # config.oauth :github, 'APP_ID', 'APP_SECRET',
-  #   :site              => 'https://github.com/',
-  #   :authorize_path    => '/login/oauth/authorize',
-  #   :access_token_path => '/login/oauth/access_token',
-  #   :scope             => %w(user public_repo)
-
   # ==> Warden configuration
-  # If you want to use other strategies, that are not supported by Devise, or
-  # change the failure app, you can configure them inside the config.warden block.
+  # If you want to use other strategies, that are not (yet) supported by Devise,
+  # you can configure them inside the config.warden block. The example below
+  # allows you to setup OAuth, using http://github.com/roman/warden_oauth
   #
   # config.warden do |manager|
-  #   manager.failure_app = AnotherApp
-  #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
+  #   manager.oauth(:twitter) do |twitter|
+  #     twitter.consumer_secret = <YOUR CONSUMER SECRET>
+  #     twitter.consumer_key  = <YOUR CONSUMER KEY>
+  #     twitter.options :site => 'http://twitter.com'
+  #   end
+  #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
 end
